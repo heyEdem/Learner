@@ -1,8 +1,6 @@
 package com.edem.admin.entity;
-import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
-import java.io.Serial;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -32,7 +30,7 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Student student;
 
-    @OneToMany(mappedBy = "user")
+    @OneToOne(mappedBy = "user")
     private Instructor instructor;
 
     public User() {
