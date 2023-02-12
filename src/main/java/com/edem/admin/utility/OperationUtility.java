@@ -12,19 +12,19 @@ import com.edem.admin.entity.User;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-public class OperationUtility {
+public class   OperationUtility {
     public static void usersOperations(UserDao userDao){
-        createUsers(userDao);
-        updateUsers(userDao);
-        updateUsers(userDao);
-        fetchUsers(userDao);
+        //createUsers(userDao);
+       //updateUsers(userDao);
+       //deleteUser(userDao);
+        //fetchUsers(userDao);
     }
 
     public static void rolesOperations(RoleDao roleDao){
         createRoles(roleDao);
-        updateRoles(roleDao);
-        deleteRole(roleDao);
-        fetchRoles(roleDao);
+        //updateRoles(roleDao);
+        //deleteRole(roleDao);
+        //fetchRoles(roleDao);
     }
 
     public static void assignRolesToUsers(RoleDao roleDao,UserDao userDao){
@@ -73,7 +73,7 @@ public class OperationUtility {
    private static void updateStudent(StudentDao studentDao){
         Student student = studentDao.findById(2L).orElseThrow(()->new EntityNotFoundException("Student not found"));
         student.setFirstName("Jay");
-        student.setLastName("Bahd");
+        student.setLastName("Bad");
         studentDao.save(student);
    }
 
