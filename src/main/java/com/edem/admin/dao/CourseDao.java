@@ -10,7 +10,6 @@ public interface CourseDao extends JpaRepository<Course,Long> {
 
     List<Course> findCoursesByCourseNameContains(String keyword);
 
-    @Query(value = "select * from courses as c where c.course_id in (select e.course_id from enrolled_in as e where e.student_id:= studentId)"
-            , nativeQuery = true)
+    @Query(value = "select * from courses as c where c.course_id in (select e.course_id from enrolled_in as e where e.student_id:= studentId)", nativeQuery = true)
     List<Course> getCoursesByStudentId(@Param("studentId") Long studentId);
 }
