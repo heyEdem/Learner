@@ -1,6 +1,5 @@
 package com.edem.admin;
 import com.edem.admin.dao.*;
-import com.edem.admin.utility.OperationUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
