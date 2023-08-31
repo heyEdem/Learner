@@ -1,7 +1,9 @@
 package com.edem.admin.utility;
 
+import com.edem.admin.dao.InstructorDao;
 import com.edem.admin.dao.RoleDao;
 import com.edem.admin.dao.UserDao;
+import com.edem.admin.entity.Instructor;
 import com.edem.admin.entity.Role;
 import com.edem.admin.entity.User;
 
@@ -22,6 +24,15 @@ public class OperationUtility {
         deleteRoles(roleDao);
         fetchRoles(roleDao);
     }
+
+    public static void instructorOperations (UserDao userDao, InstructorDao instructorDao, RoleDao roleDao){
+        createInstructors(userDao, instructorDao,roleDao);
+        updateInstructor(instructorDao);
+        removeInstructor(instructorDao);
+        fetchInstructors(instructorDao);
+    }
+
+
 
 
     private static void createUsers(UserDao userDao) {
@@ -77,4 +88,34 @@ public class OperationUtility {
         });
     }
 
+    private static void fetchInstructors(InstructorDao instructorDao) {
+        instructorDao.findAll().forEach(instructor -> System.out.println(instructor.toString()));
+    }
+
+    private static void removeInstructor(InstructorDao instructorDao) {
+        instructorDao.deleteById(2L);
+    }
+
+    private static void updateInstructor(InstructorDao instructorDao) {
+        Instructor instructor = instructorDao.findById(1L).orElseThrow(()-> new EntityNotFoundException("Instructor Not Found"));
+        instructor.setSummary("Certified Java");
+        instructorDao.save(instructor);
+    }
+
+    private static void createInstructors(UserDao userDao, InstructorDao instructorDao, RoleDao roleDao) {
+        Role role = roleDao.findByName("Instructor");
+        if (role== null)throw new EntityNotFoundException("Role Ont Found");
+
+        User user1 = new User("instructor1@gmail.com","pass1");
+        userDao.save(user1);
+        user1.assignRoleToUser(role);
+        Instructor instructor1 = new Instructor("Instructor1FN","instructor1LN","Experienced Java",user1);
+        instructorDao.save(instructor1);
+
+        User user2 = new User("instructor2@gmail.com","pass1");
+        userDao.save(user2);
+        user1.assignRoleToUser(role);
+        Instructor instructor2 = new Instructor("Instructor2FN","instructor2LN","Senior Java",user2);
+        instructorDao.save(instructor2);
+    }
 }
