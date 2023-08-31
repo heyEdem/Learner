@@ -1,13 +1,7 @@
 package com.edem.admin.utility;
 
-import com.edem.admin.dao.InstructorDao;
-import com.edem.admin.dao.RoleDao;
-import com.edem.admin.dao.StudentDao;
-import com.edem.admin.dao.UserDao;
-import com.edem.admin.entity.Instructor;
-import com.edem.admin.entity.Role;
-import com.edem.admin.entity.Student;
-import com.edem.admin.entity.User;
+import com.edem.admin.dao.*;
+import com.edem.admin.entity.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -41,8 +35,36 @@ public class OperationUtility {
         fetchStudents(studentDao);
     }
 
+    public static void coursesOperations(CourseDao courseDao, UserDao userDao, RoleDao roleDao, InstructorDao instructorDao){
+        createCourse(courseDao, instructorDao);
+        updateCourse(courseDao);
+        deleteCourse(courseDao);
+    }
+
+    private static void deleteCourse(CourseDao courseDao) {
+        courseDao.deleteById(2L);
+    }
+
+    private static void updateCourse(CourseDao courseDao) {
+        Course course = courseDao.findById(1L).orElseThrow(()-> new EntityNotFoundException("Course not found"));
+        course.setCourseDescription("Updated course");
+        course.setCourseName("updated course");
+        course.setCourseDuration("2 hours");
+        courseDao.save(course);
+    }
+
+    private static void createCourse(CourseDao courseDao, InstructorDao instructorDao) {
+        Instructor instructor = instructorDao.findById(1L).orElseThrow(()-> new EntityNotFoundException("Instructor not found"));
+        Course course1 = new Course("Hibernate", "5 hours","Introduction to Hibernate", instructor );
+        Course course2 = new Course("Java", "5 hours","Introduction to Java", instructor );
+        Course course3 = new Course("Spring", "5 hours","Introduction to Spring", instructor );
+        courseDao.save(course1);
+        courseDao.save(course2);
+        courseDao.save(course3);
 
 
+
+    }
 
 
     private static void updateStudent(StudentDao studentDao) {
