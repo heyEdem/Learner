@@ -6,6 +6,7 @@ import com.edem.admin.entity.Role;
 import com.edem.admin.entity.User;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 public class OperationUtility {
 
@@ -20,6 +21,23 @@ public class OperationUtility {
         updateRoles(roleDao);
         deleteRoles(roleDao);
         fetchRoles(roleDao);
+    }
+
+
+    private static void createUsers(UserDao userDao) {
+        User user1 = new User("u1@gmail.com","pass1");
+        userDao.save(user1);
+
+        User user2 = new User("u2@gmail.com","pass2");
+        userDao.save(user2);
+
+        User user3 = new User("u3@gmail.com","pass2");
+        userDao.save(user3);
+    }
+
+
+    private static void updateUsers(UserDao userDao){
+        User user = userDao.findById(2L).orElseThrow(()->new EntityNotFoundException("User not found"));
     }
 
     private static void fetchRoles(RoleDao roleDao) {
@@ -48,19 +66,15 @@ public class OperationUtility {
         roleDao.save(role3);
     }
 
-    private static void createUsers(UserDao userDao) {
-        User user1 = new User("u1@gmail.com","pass1");
-        userDao.save(user1);
+    public static void assignRolesToUsers (UserDao userDao, RoleDao roleDao){
+        Role role =roleDao.findByName("Admin");
+        if (role==null) throw new EntityNotFoundException("Role Not Found");
 
-        User user2 = new User("u2@gmail.com","pass2");
-        userDao.save(user2);
-
-        User user3 = new User("u3@gmail.com","pass2");
-        userDao.save(user3);
+        List<User> users = userDao.findAll();
+        users.forEach( user-> {
+            user.assignRoleToUser(role);
+            userDao.save (user);
+        });
     }
 
-
-    private static void updateUsers(UserDao userDao){
-        User user = userDao.findById(2L).orElseThrow(()->new EntityNotFoundException("User not found"));
-    }
 }
