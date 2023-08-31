@@ -1,11 +1,17 @@
 package com.edem.admin.entity;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-@Entity
-@Table(name = "students")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity@Table(name = "students")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,60 +47,11 @@ public class Student {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()  {
         return Objects.hash(studentId, firstName, lastName, level);
     }
 
-    public Long getStudentId() {
-        return studentId;
-    }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public Set<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Student() {
-    }
 
     public Student(String firstName, String lastName, String level, User user) {
         this.firstName = firstName;
