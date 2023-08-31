@@ -5,6 +5,7 @@ import com.edem.admin.entity.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 public class OperationUtility {
 
@@ -35,10 +36,31 @@ public class OperationUtility {
         fetchStudents(studentDao);
     }
 
-    public static void coursesOperations(CourseDao courseDao, UserDao userDao, RoleDao roleDao, InstructorDao instructorDao){
+    public static void coursesOperations(CourseDao courseDao,StudentDao studentDao, UserDao userDao, RoleDao roleDao, InstructorDao instructorDao){
         createCourse(courseDao, instructorDao);
         updateCourse(courseDao);
         deleteCourse(courseDao);
+        fetchCourses(courseDao);
+        assignStudentToCourse(courseDao,studentDao);
+        fetchCoursesForStudents(courseDao);
+    }
+
+    private static void fetchCoursesForStudents(CourseDao courseDao) {
+        courseDao.getCoursesByStudentId(1L).forEach(course -> System.out.println(course.toString()));
+    }
+
+    private static void assignStudentToCourse(CourseDao courseDao, StudentDao studentDao) {
+       Optional<Student> student1 = studentDao.findById(1L);
+       Optional<Student> student2 = studentDao.findById(2L);
+
+       Course course = courseDao.findById(1L).orElseThrow(()-> new EntityNotFoundException("Course Not Found"));
+       student1.ifPresent(course::assignStudentToCourse);
+       student2.ifPresent(course::assignStudentToCourse);
+       courseDao.save(course);
+    }
+
+    private static void fetchCourses(CourseDao courseDao) {
+        courseDao.findAll().forEach(course -> System.out.println(course.toString()));
     }
 
     private static void deleteCourse(CourseDao courseDao) {
@@ -55,11 +77,12 @@ public class OperationUtility {
 
     private static void createCourse(CourseDao courseDao, InstructorDao instructorDao) {
         Instructor instructor = instructorDao.findById(1L).orElseThrow(()-> new EntityNotFoundException("Instructor not found"));
-        Course course1 = new Course("Hibernate", "5 hours","Introduction to Hibernate", instructor );
-        Course course2 = new Course("Java", "5 hours","Introduction to Java", instructor );
-        Course course3 = new Course("Spring", "5 hours","Introduction to Spring", instructor );
+
+        Course course1 = new Course("Hibernate", "5 hours","Introduction to Hibernate", instructor);
         courseDao.save(course1);
+        Course course2 = new Course("Java", "3 hours","Introduction to Java", instructor);
         courseDao.save(course2);
+        Course course3 = new Course("Spring", "5 hours","Introduction to Spring", instructor);
         courseDao.save(course3);
 
 
