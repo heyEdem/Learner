@@ -32,5 +32,8 @@ public class AdminApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		OperationUtility.usersOperation(userDao);
+		OperationUtility.roleOperations(roleDao);
+//		OperationUtility.assignRolesToUsers(userDao,roleDao);
+		OperationUtility.instructorOperations(userDao,instructorDao,roleDao);
 	}
 }

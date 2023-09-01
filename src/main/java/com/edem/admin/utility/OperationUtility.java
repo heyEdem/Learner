@@ -10,27 +10,24 @@ import java.util.Optional;
 public class OperationUtility {
 
     public static void usersOperation(UserDao userDao){
-//        createUsers(userDao);
-//        updateUsers(userDao);
+        createUsers(userDao);
+        updateUsers(userDao);
         deleteUsers(userDao);
     }
 
-    private static void deleteUsers(UserDao userDao) {
-        userDao.deleteById(3L);
-    }
 
     public static void roleOperations(RoleDao roleDao){
         createRoles(roleDao);
-        updateRoles(roleDao);
-        deleteRoles(roleDao);
-        fetchRoles(roleDao);
+//        updateRoles(roleDao);
+//        deleteRoles(roleDao);
+//        fetchRoles(roleDao);
     }
 
     public static void instructorOperations (UserDao userDao, InstructorDao instructorDao, RoleDao roleDao){
-        createInstructors(userDao, instructorDao,roleDao);
+//        createInstructors(userDao, instructorDao,roleDao);
         updateInstructor(instructorDao);
-        removeInstructor(instructorDao);
-        fetchInstructors(instructorDao);
+//        removeInstructor(instructorDao);
+//        fetchInstructors(instructorDao);
     }
 
     public static void studentOperations(UserDao userDao, StudentDao studentDao,RoleDao roleDao){
@@ -112,6 +109,9 @@ public class OperationUtility {
         User user3 = new User("u3@gmail.com","pass2");
         userDao.save(user3);
     }
+    private static void deleteUsers(UserDao userDao) {
+        userDao.deleteById(3L);
+    }
 
 
     private static void updateUsers(UserDao userDao){
@@ -145,9 +145,8 @@ public class OperationUtility {
     }
 
     public static void assignRolesToUsers (UserDao userDao, RoleDao roleDao){
-        Role role =roleDao.findByName("Admin");
-        if (role==null) throw new EntityNotFoundException("Role Not Found");
-
+        Role role = roleDao.findByName("Admin");
+        if (role == null) throw new EntityNotFoundException("Role Not Found");
         List<User> users = userDao.findAll();
         users.forEach( user-> {
             user.assignRoleToUser(role);
@@ -171,7 +170,7 @@ public class OperationUtility {
 
     private static void createInstructors(UserDao userDao, InstructorDao instructorDao, RoleDao roleDao) {
         Role role = roleDao.findByName("Instructor");
-        if (role== null)throw new EntityNotFoundException("Role Ont Found");
+//        if (role == null) throw new EntityNotFoundException("Role Not Found");
 
         User user1 = new User("instructor1@gmail.com","pass1");
         userDao.save(user1);
