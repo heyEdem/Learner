@@ -67,7 +67,6 @@ public class Course {
         return Objects.hash(courseId, courseName, courseDuration, courseDescription);
     }
 
-
     @Override
     public String toString() {
         return "Course{" +

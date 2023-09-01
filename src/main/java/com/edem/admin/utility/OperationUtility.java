@@ -10,9 +10,13 @@ import java.util.Optional;
 public class OperationUtility {
 
     public static void usersOperation(UserDao userDao){
-        createUsers(userDao);
-        updateUsers(userDao);
-        
+//        createUsers(userDao);
+//        updateUsers(userDao);
+        deleteUsers(userDao);
+    }
+
+    private static void deleteUsers(UserDao userDao) {
+        userDao.deleteById(3L);
     }
 
     public static void roleOperations(RoleDao roleDao){
