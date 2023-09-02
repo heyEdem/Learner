@@ -28,7 +28,7 @@ public class Course {
     private String courseDuration;
 
     @Basic
-    @Column(name ="course_description",nullable = false, length = 65)
+    @Column(name ="course_description",nullable = false, length = 100)
     private String courseDescription;
 
     @ManyToOne(fetch = FetchType.LAZY)

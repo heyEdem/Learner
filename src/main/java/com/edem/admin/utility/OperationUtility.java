@@ -11,8 +11,8 @@ public class OperationUtility {
 
     public static void usersOperation(UserDao userDao){
         createUsers(userDao);
-        updateUsers(userDao);
-        deleteUsers(userDao);
+//        updateUsers(userDao);
+//        deleteUsers(userDao);
     }
 
 
@@ -24,26 +24,26 @@ public class OperationUtility {
     }
 
     public static void instructorOperations (UserDao userDao, InstructorDao instructorDao, RoleDao roleDao){
-//        createInstructors(userDao, instructorDao,roleDao);
-        updateInstructor(instructorDao);
+        createInstructors(userDao, instructorDao,roleDao);
+//        updateInstructor(instructorDao);
 //        removeInstructor(instructorDao);
 //        fetchInstructors(instructorDao);
     }
 
     public static void studentOperations(UserDao userDao, StudentDao studentDao,RoleDao roleDao){
         createStudent(userDao, studentDao,roleDao);
-        updateStudent(studentDao);
-        deleteStudent(studentDao);
-        fetchStudents(studentDao);
+//        updateStudent(studentDao);
+//        deleteStudent(studentDao);
+//        fetchStudents(studentDao);
     }
 
-    public static void coursesOperations(CourseDao courseDao,StudentDao studentDao, UserDao userDao, RoleDao roleDao, InstructorDao instructorDao){
+public static void coursesOperations(CourseDao courseDao,StudentDao studentDao, InstructorDao instructorDao){
         createCourse(courseDao, instructorDao);
-        updateCourse(courseDao);
-        deleteCourse(courseDao);
-        fetchCourses(courseDao);
-        assignStudentToCourse(courseDao,studentDao);
-        fetchCoursesForStudents(courseDao);
+//        updateCourse(courseDao);
+//        deleteCourse(courseDao);
+//        fetchCourses(courseDao);
+//        assignStudentToCourse(courseDao,studentDao);
+//        fetchCoursesForStudents(courseDao);
     }
 
     private static void fetchCoursesForStudents(CourseDao courseDao) {
@@ -65,7 +65,7 @@ public class OperationUtility {
     }
 
     private static void deleteCourse(CourseDao courseDao) {
-        courseDao.deleteById(2L);
+        courseDao.deleteById(1L);
     }
 
     private static void updateCourse(CourseDao courseDao) {
@@ -79,13 +79,11 @@ public class OperationUtility {
     private static void createCourse(CourseDao courseDao, InstructorDao instructorDao) {
         Instructor instructor = instructorDao.findById(1L).orElseThrow(()-> new EntityNotFoundException("Instructor not found"));
 
-        Course course1 = new Course("Hibernate", "5 hours","Introduction to Hibernate", instructor);
+        Course course1 = new Course("Science","4 hours","We learning science",instructor);
         courseDao.save(course1);
-        Course course2 = new Course("Java", "3 hours","Introduction to Java", instructor);
-        courseDao.save(course2);
+
         Course course3 = new Course("Spring", "5 hours","Introduction to Spring", instructor);
         courseDao.save(course3);
-
 
 
     }
@@ -190,15 +188,15 @@ public class OperationUtility {
         if (role == null) throw new EntityNotFoundException("Student Not Found");
 
         User user1 = new User("student1@gmail.com","pass1");
-        userDao.save(user1);
         user1.assignRoleToUser(role);
+        userDao.save(user1);
         Student student1 = new Student("student1FN","student1LN","beginner",user1);
         studentDao.save(student1);
 
 
         User user2 = new User("student2@gmail.com","pass2");
-        userDao.save(user2);
         user2.assignRoleToUser(role);
+        userDao.save(user2);
         Student student2 = new Student("student2FN","student2LN","PHD",user2);
         studentDao.save(student2);
     }
