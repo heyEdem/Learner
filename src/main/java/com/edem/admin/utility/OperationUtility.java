@@ -38,12 +38,12 @@ public class OperationUtility {
     }
 
 public static void coursesOperations(CourseDao courseDao,StudentDao studentDao, InstructorDao instructorDao){
-        createCourse(courseDao, instructorDao);
+//        createCourse(courseDao, instructorDao);
 //        updateCourse(courseDao);
 //        deleteCourse(courseDao);
 //        fetchCourses(courseDao);
 //        assignStudentToCourse(courseDao,studentDao);
-//        fetchCoursesForStudents(courseDao);
+        fetchCoursesForStudents(courseDao);
     }
 
     private static void fetchCoursesForStudents(CourseDao courseDao) {
@@ -79,10 +79,10 @@ public static void coursesOperations(CourseDao courseDao,StudentDao studentDao, 
     private static void createCourse(CourseDao courseDao, InstructorDao instructorDao) {
         Instructor instructor = instructorDao.findById(1L).orElseThrow(()-> new EntityNotFoundException("Instructor not found"));
 
-        Course course1 = new Course("Science","4 hours","We learning science",instructor);
+        Course course1 = new Course("Science" , "4 hours" , "We learning science", instructor);
         courseDao.save(course1);
 
-        Course course3 = new Course("Spring", "5 hours","Introduction to Spring", instructor);
+        Course course3 = new Course("Spring", "5 hours" , "Introduction to Spring" , instructor);
         courseDao.save(course3);
 
 
@@ -121,11 +121,11 @@ public static void coursesOperations(CourseDao courseDao,StudentDao studentDao, 
     }
 
     private static void deleteRoles(RoleDao roleDao) {
-        roleDao.deleteById(2L);
+        roleDao.deleteById(4L);
     }
 
     private static void updateRoles(RoleDao roleDao) {
-        Role role = roleDao.findById(1L).orElseThrow(()->new EntityNotFoundException("Not found"));
+        Role role = roleDao.findById(4L).orElseThrow(()->new EntityNotFoundException("Not found"));
         role.setName("New Admin");
         roleDao.save(role);
 
@@ -140,6 +140,9 @@ public static void coursesOperations(CourseDao courseDao,StudentDao studentDao, 
 
         Role role3 = new Role("Student");
         roleDao.save(role3);
+
+        Role role4 = new Role("User");
+        roleDao.save(role4);
     }
 
     public static void assignRolesToUsers (UserDao userDao, RoleDao roleDao){
@@ -168,7 +171,7 @@ public static void coursesOperations(CourseDao courseDao,StudentDao studentDao, 
 
     private static void createInstructors(UserDao userDao, InstructorDao instructorDao, RoleDao roleDao) {
         Role role = roleDao.findByName("Instructor");
-//        if (role == null) throw new EntityNotFoundException("Role Not Found");
+        if (role == null) throw new EntityNotFoundException("Role Not Found");
 
         User user1 = new User("instructor1@gmail.com","pass1");
         userDao.save(user1);
@@ -185,7 +188,7 @@ public static void coursesOperations(CourseDao courseDao,StudentDao studentDao, 
 
     private static void createStudent(UserDao userDao, StudentDao studentDao, RoleDao roleDao) {
         Role role = roleDao.findByName("Student");
-        if (role == null) throw new EntityNotFoundException("Student Not Found");
+        if (role == null) throw new EntityNotFoundException("Role Not Found");
 
         User user1 = new User("student1@gmail.com","pass1");
         user1.assignRoleToUser(role);
@@ -205,6 +208,6 @@ public static void coursesOperations(CourseDao courseDao,StudentDao studentDao, 
     }
 
     private static void deleteStudent(StudentDao studentDao) {
-        studentDao.deleteById(1L);
+        studentDao.deleteById(2L);
     }
 }

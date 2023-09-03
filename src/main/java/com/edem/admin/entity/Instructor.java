@@ -1,9 +1,17 @@
 package com.edem.admin.entity;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Data
 @Entity
 @Table(name = "instructors")
 public class Instructor {
@@ -31,53 +39,7 @@ public class Instructor {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id",nullable = false)
     private User user;
 
-    public Long getInstructorId() {
-        return instructorId;
-    }
 
-    public void setInstructorId(Long instructorId) {
-        this.instructorId = instructorId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public Set<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -90,9 +52,6 @@ public class Instructor {
     @Override
     public int hashCode() {
         return Objects.hash(instructorId, firstName, lastName, summary);
-    }
-
-    public Instructor() {
     }
 
     public Instructor(String firstName, String lastName, String summary, User user) {

@@ -16,7 +16,7 @@ public class AdminApplication implements CommandLineRunner {
 	private StudentDao studentDao;
 	private RoleDao roleDao;
 
-	public AdminApplication(UserDao userDao, CourseDao courseDao, InstructorDao instructorDao, StudentDao studentDao, RoleDao roleDao) {
+	public AdminApplication(UserDao userDao,CourseDao courseDao, InstructorDao instructorDao, StudentDao studentDao, RoleDao roleDao) {
 		this.userDao = userDao;
 		this.courseDao = courseDao;
 		this.instructorDao = instructorDao;
