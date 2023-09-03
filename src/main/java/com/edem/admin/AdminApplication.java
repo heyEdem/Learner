@@ -1,6 +1,6 @@
 package com.edem.admin;
 import com.edem.admin.dao.*;
-import com.edem.admin.utility.OperationUtility;
+//import com.edem.admin.utility.OperationUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +28,7 @@ public class AdminApplication implements CommandLineRunner {
 		SpringApplication.run(AdminApplication.class, args);
 	}
 
-
+//
 	@Override
 	public void run(String... args) throws Exception {
 //		OperationUtility.usersOperation(userDao);
@@ -36,6 +36,6 @@ public class AdminApplication implements CommandLineRunner {
 //		OperationUtility.assignRolesToUsers(userDao,roleDao);
 //		OperationUtility.instructorOperations(userDao,instructorDao,roleDao);
 //		OperationUtility.studentOperations( userDao,studentDao, roleDao);
-		OperationUtility.coursesOperations(courseDao,studentDao,instructorDao);
+//		OperationUtility.coursesOperations(courseDao,studentDao,instructorDao);
 	}
 }
