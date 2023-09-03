@@ -9,7 +9,7 @@ public interface CourseService {
 
     Course createCourse(String courseName, String courseDuration, String courseDescription, Long instructorId);
 
-    Course createOrupdateCourse(Course course);
+    Course createOrUpdateCourse(Course course);
 
     List<Course> findCoursesByCourseName(String keyword);
 
