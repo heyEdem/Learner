@@ -25,7 +25,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course loadCourseById(Long courseId) {
-        return courseDao.findById(courseId).orElseThrow(()->new EntityNotFoundException("Course with id "+courseId +" not Found"))
+        return courseDao.findById(courseId).orElseThrow(()->new EntityNotFoundException("Course with id "+courseId +" not Found"));
     }
 
     @Override
