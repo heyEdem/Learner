@@ -5,7 +5,12 @@ import com.edem.admin.dao.RoleDao;
 import com.edem.admin.dao.UserDao;
 import com.edem.admin.entity.Role;
 import com.edem.admin.entity.User;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
+@Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;

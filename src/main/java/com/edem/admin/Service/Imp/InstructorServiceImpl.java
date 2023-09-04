@@ -7,10 +7,14 @@ import com.edem.admin.dao.InstructorDao;
 import com.edem.admin.entity.Course;
 import com.edem.admin.entity.Instructor;
 import com.edem.admin.entity.User;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
 public class InstructorServiceImpl implements InstructorService {
     private InstructorDao instructorDao;
     private CourseService courseService;
