@@ -2,21 +2,24 @@ package com.edem.admin.Service.Imp;
 
 import com.edem.admin.Service.CourseService;
 import com.edem.admin.Service.InstructorService;
+import com.edem.admin.Service.UserService;
 import com.edem.admin.dao.InstructorDao;
 import com.edem.admin.entity.Course;
 import com.edem.admin.entity.Instructor;
+import com.edem.admin.entity.User;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 public class InstructorServiceImpl implements InstructorService {
     private InstructorDao instructorDao;
-
     private CourseService courseService;
+    private UserService userService;
 
-    public InstructorServiceImpl(InstructorDao instructorDao, CourseService courseService) {
+    public InstructorServiceImpl(InstructorDao instructorDao, CourseService courseService, UserService userService) {
         this.instructorDao = instructorDao;
         this.courseService = courseService;
+        this.userService = userService;
     }
 
     @Override
@@ -36,12 +39,14 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public Instructor createInstructor(String firstName, String lastName, String summary, String email, String password) {
-        return null;
+        User user = new User(email, password);
+        userService.assignRolesToUsers(email,"Instructor");
+        return instructorDao.save(new Instructor(firstName, lastName, summary,user));
     }
 
     @Override
     public Instructor updateInstructor(Instructor instructor) {
-        return instructorDao.save(instructor );
+        return instructorDao.save(instructor);
     }
 
     @Override
