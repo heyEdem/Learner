@@ -43,7 +43,7 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public Instructor createInstructor(String firstName, String lastName, String summary, String email, String password) {
-        User user = new User(email, password);
+        User user =  userService.createUser(email, password);
         userService.assignRolesToUsers(email,"Instructor");
         return instructorDao.save(new Instructor(firstName, lastName, summary,user));
     }
