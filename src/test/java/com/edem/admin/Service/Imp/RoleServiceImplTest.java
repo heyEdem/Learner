@@ -34,6 +34,7 @@ class RoleServiceImplTest {
     @Test
     void testCreateRole() {
         String roleName = "Admin";
-        verify(roleDao,times(1)).save(any());
+        roleService.createRole(roleName);
+        verify(roleDao).save(any());
     }
 }
