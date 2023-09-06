@@ -2,8 +2,10 @@ package com.edem.admin.Service.Imp;
 
 import com.edem.admin.dao.CourseDao;
 import com.edem.admin.dao.InstructorDao;
+import com.edem.admin.dao.StudentDao;
 import com.edem.admin.entity.Course;
 import com.edem.admin.entity.Instructor;
+import com.edem.admin.entity.Student;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,6 +33,9 @@ class CourseServiceImplTest {
     @InjectMocks
     private CourseServiceImpl courseService;
 
+    @Mock
+    private StudentDao studentDao;
+
     @Test
     void testLoadCourseById() {
         Course course = new Course();
@@ -50,7 +55,7 @@ class CourseServiceImplTest {
 
 
     @Test
-    void createCourse() {
+    void testCreateCourse() {
         Instructor instructor = new Instructor();
         instructor.setInstructorId(1L);
 
@@ -62,7 +67,7 @@ class CourseServiceImplTest {
 
 
     @Test
-    void createOrUpdateCourse() {
+    void testCreateOrUpdateCourse() {
         Course course = new Course();
         course.setCourseId(1L);
 
@@ -76,22 +81,43 @@ class CourseServiceImplTest {
     }
 
     @Test
-    void findCoursesByCourseName() {
+    void testFindCoursesByCourseName() {
+        String courseName = "Jpa";
+        courseService.findCoursesByCourseName(courseName);
+
+        verify(courseDao).findCoursesByCourseNameContains(courseName);
+
     }
 
     @Test
-    void assignStudentToCourse() {
+    void testAssignStudentToCourse() {
+        Student student = new Student();
+        student.setStudentId(1L);
+
+        Course course = new Course();
+        course.setCourseId(2L);
+
+        when(studentDao.findById(any())).thenReturn(Optional.of(student));
+        when(courseDao.findById(any())).thenReturn(Optional.of(course));
+
+        courseService.assignStudentToCourse(1L, 2L);
     }
 
     @Test
-    void fetchAll() {
+    void testFetchAll() {
+        courseService.fetchAll();
+        verify(courseDao).findAll();
     }
 
     @Test
-    void fetchAllCoursesForStudent() {
+    void testFetchAllCoursesForStudent() {
+        courseService.fetchAllCoursesForStudent(1L);
+        verify(courseDao).getCoursesByStudentId(1L);
     }
 
     @Test
-    void removeCourse() {
+    void testRemoveCourse() {
+        courseService.removeCourse(1L);
+        verify(courseDao).deleteById(1L);
     }
 }
