@@ -1,6 +1,10 @@
 package com.edem.admin.Service.Imp;
+import com.edem.admin.Service.UserService;
 import com.edem.admin.dao.StudentDao;
+import com.edem.admin.dao.UserDao;
+import com.edem.admin.entity.Course;
 import com.edem.admin.entity.Student;
+import com.edem.admin.entity.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,11 +22,16 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class StudentServiceImplTest {
 
+
     @Mock
     private StudentDao studentDao;
 
     @InjectMocks
     private StudentServiceImpl studentService;
+
+    @Mock
+    private UserService userService;
+
     @Test
     void testLoadStudentById() {
         Student student = new Student();
@@ -55,17 +64,44 @@ class StudentServiceImplTest {
 
     @Test
     void testCreateStudent() {
+        User user = new User();
+        user.setEmail("user@gmail.com");
+        user.setPassword("pass1");
+
+        when(userService.createUser(any(),any())).thenReturn(user);
+
+        studentService.createStudent("FN","LN","beginner","student@gmail.com","1234");
+        verify(studentDao).save(any());
     }
 
     @Test
     void testUpdateStudent() {
+        Student student = new Student();
+        student.setStudentId(1L);
+
+        studentService.updateStudent(student);
+        verify(studentDao).save(student);
     }
 
     @Test
     void testFetchAllStudents() {
+        studentService.fetchAllStudents();
+        verify(studentDao).findAll();
     }
 
     @Test
     void testRemoveStudent() {
+        Student student = new Student();
+        student.setStudentId(1L);
+
+        Course course = new Course();
+        course.setCourseId(1L);
+
+        student.getCourses().add(course);
+        when(studentDao.findById(any())).thenReturn(Optional.of(student));
+
+        studentService.removeStudent(1L);
+
+        verify(studentDao).deleteById(any());
     }
 }
