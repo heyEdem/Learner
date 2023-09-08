@@ -29,8 +29,14 @@
       <input type="text" name="courseDescription" class="form-control" th:value="${course.getCourseDescription()}" readonly="readonly">
      </div>
       <div class="mb-3 mt-3">
-      <label class="form-label">Course Id</label>
-      <input type="number" name="courseId" class="form-control" th:value="${course.getCourseId()}" readonly="readonly">
+      <label class="form-label">Instructor</label>
+        <select th:field="${course.instructor}" name="instructor" class="form-select">
+          <option th:each="instructor:${listInstructors}"
+                  th:text="${instructor.getFirstName()}+ ' ' +${instructor.getLastName()}"
+                  th:value="${instructor.getInstructorId()}"
+
+          </option>
+        </select>
      </div>
     </form>
   </div>
