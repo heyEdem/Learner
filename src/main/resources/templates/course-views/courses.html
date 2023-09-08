@@ -34,6 +34,14 @@
                             <td th:text="${course.getCourseDescription()}" ></td>
                             <td th:text="${course.getInstructor().getLastName()}+' '+${course.getInstructor().getLastName()}" ></td>
                             <td th:text="${course.getStudents().size()}" ></td>
+                            <td>
+                                <a class="btn btn-danger" onclick="return confirm('Are you sure?')"
+                                th:href="@{/courses/delete/(courseId=${course.getCourseId()}, keyword=${keyword})}" >Delete</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-success"
+                                th:href="@{/courses/formUpdate/(courseId=${course.getCourseId()})}" >Update</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
