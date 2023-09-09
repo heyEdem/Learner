@@ -50,6 +50,15 @@ public class CourseController {
         return "course-views/formUpdate";
    }
 
+   @GetMapping(value = "/formCreate")
+   public String formCreate(Model model){
+        List<Instructor> instructors = instructorService.fetchAllInstructors();
+
+        model.addAttribute("listInstructors",instructors);
+        model.addAttribute("course", new Course());
+        return "course-views/formCreate";
+   }
+
    @PostMapping(value = "/save")
    public String  save (Course course){
         courseService.createOrUpdateCourse(course);
