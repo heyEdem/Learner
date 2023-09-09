@@ -5,9 +5,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
+
 @Getter
 @Setter
 @Entity
@@ -49,6 +47,16 @@ public class Course {
         this.instructor = instructor;
     }
 
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId=" + courseId +
+                ", courseName='" + courseName + '\'' +
+                ", courseDuration='" + courseDuration + '\'' +
+                ", courseDescription='" + courseDescription + '\'' +
+                '}';
+    }
+
     public void assignStudentToCourse(Student student) {
         this.students.add(student);
         student.getCourses().add(this);
@@ -57,5 +65,18 @@ public class Course {
     public void removeStudentFromCourse(Student student) {
         this.students.remove(student);
         student.getCourses().remove(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return Objects.equals(courseId, course.courseId) && Objects.equals(courseName, course.courseName) && Objects.equals(courseDuration, course.courseDuration) && Objects.equals(courseDescription, course.courseDescription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseId, courseName, courseDuration, courseDescription);
     }
 }

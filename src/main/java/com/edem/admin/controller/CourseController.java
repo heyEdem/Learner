@@ -4,6 +4,7 @@ import com.edem.admin.Service.CourseService;
 import com.edem.admin.Service.InstructorService;
 import com.edem.admin.entity.Course;
 import com.edem.admin.entity.Instructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +17,13 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/courses")
 public class CourseController {
-    private CourseService courseService;
-    private InstructorService instructorService;
+    private final CourseService courseService;
+    private final InstructorService instructorService;
+
 
     public CourseController(CourseService courseService, InstructorService instructorService) {
         this.courseService = courseService;
         this.instructorService = instructorService;
-    }
-
-    public CourseController(CourseService courseService) {
-        this.courseService = courseService;
     }
 
     @GetMapping(value = "/index")
@@ -36,12 +34,18 @@ public class CourseController {
         return "course-views/courses";
     }
 
+    @GetMapping(value = "/delete")
+    public String deleteCourse(Long courseId, String keyword){
+        courseService.removeCourse(courseId);
+        return "redirect:/courses/index?keyword="+ keyword;
+    }
+
     @GetMapping(value ="/formUpdate")
    public String formUpdate(Model model, Long courseId){
         Course course = courseService.loadCourseById(courseId);
-        model.addAttribute("course",course);
-
         List<Instructor> instructors = instructorService.fetchAllInstructors();
+
+        model.addAttribute("course",course);
         model.addAttribute("listInstructors", instructors);
         return "course-views/formUpdate";
    }

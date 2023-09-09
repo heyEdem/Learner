@@ -7,11 +7,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Getter
 @Setter
-@Data
 @Entity
 @Table(name = "instructors")
 public class Instructor {
@@ -54,6 +52,9 @@ public class Instructor {
         return Objects.hash(instructorId, firstName, lastName, summary);
     }
 
+    public Instructor() {
+    }
+
     public Instructor(String firstName, String lastName, String summary, User user) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -61,10 +62,13 @@ public class Instructor {
         this.user = user;
     }
 
-    public Instructor(Long instructorId, String firstName, String lastName, String summary) {
-        this.instructorId = instructorId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.summary = summary;
+    @Override
+    public String toString() {
+        return "Instructor{" +
+                "instructorId=" + instructorId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", summary='" + summary + '\'' +
+                '}';
     }
 }
