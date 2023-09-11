@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
     <title>Courses</title>
 </head>
+
 <body>
+<div layout:fragment="content1">
     <div class="container">
         <div class="card">
             <div class="card-header">
@@ -36,11 +38,11 @@
                             <td th:text="${course.getStudents().size()}" ></td>
                             <td>
                                 <a class="btn btn-danger" onclick="return confirm('Are you sure?')"
-                                th:href="@{/courses/delete(courseId=${course.getCourseId()}, keyword=${keyword})}" >Delete</a>
+                                   th:href="@{/courses/delete(courseId=${course.getCourseId()}, keyword=${keyword})}" >Delete</a>
                             </td>
                             <td>
                                 <a class="btn btn-success"
-                                th:href="@{/courses/formUpdate(courseId=${course.getCourseId()})}">Update</a>
+                                   th:href="@{/courses/formUpdate(courseId=${course.getCourseId()})}">Update</a>
                             </td>
                         </tr>
                         </tbody>
@@ -49,5 +51,5 @@
             </div>
         </div>
     </div>
-</body>
+</div></body>
 </html>

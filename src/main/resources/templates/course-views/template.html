@@ -8,6 +8,18 @@
 <body>
     <nav class="navbar navbar-expand-sm bg-dark">
         <a class="navbar-brand" th:href="@{/courses/index}">Home</a>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-popper="dropdown">Courses</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/courses/index}">Search</a></li>
+                        <li><a class="dropdown-item" th:href="@{/courses/formCreate}">New Course</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </nav>
+<section layout:fragment="content1"></section>
 </body>
 </html>
