@@ -94,5 +94,12 @@ public class CourseController {
         model.addAttribute("listCourses",instructor.getCourses());
         return "course-views/instructor-courses";
    }
+   @GetMapping(value = "/instructor")
+   public String coursesByInstructorId(Model model, Long instructorId){
+
+        Instructor instructor = instructorService.loadInstructorById(instructorId);
+        model.addAttribute("listCourses",instructor.getCourses());
+        return "course-views/instructor-courses";
+   }
 
 }
