@@ -34,7 +34,7 @@ public class CourseController {
         List<Course> courses = courseService.findCoursesByCourseName(keyword);
         model.addAttribute("listCourses",courses);
         model.addAttribute("keyword",keyword);
-        return "course-views/courses";
+        return "courses";
     }
 
     @GetMapping(value = "/delete")
@@ -50,7 +50,7 @@ public class CourseController {
 
         model.addAttribute("course",course);
         model.addAttribute("listInstructors", instructors);
-        return "course-views/formUpdate";
+        return "formUpdate";
     }
 
     @GetMapping(value = "/formCreate")
@@ -59,7 +59,7 @@ public class CourseController {
 
         model.addAttribute("listInstructors",instructors);
         model.addAttribute("course", new Course());
-        return "course-views/formCreate";
+        return "formCreate";
     }
 
    @PostMapping(value = "/save")
@@ -76,7 +76,7 @@ public class CourseController {
         List<Course> otherCourses= courseService.fetchAll().stream().filter(course -> !courseList.contains(course)).collect(Collectors.toList());
         model.addAttribute("listCourses",courseList);
         model.addAttribute("otherCourses",otherCourses);
-        return "course-views/student-courses";
+        return "student-courses";
    }
 
    @GetMapping(value = "/enrollStudent")
@@ -92,14 +92,14 @@ public class CourseController {
 
         Instructor instructor = instructorService.loadInstructorById(instructorId);
         model.addAttribute("listCourses",instructor.getCourses());
-        return "course-views/instructor-courses";
+        return "instructor-courses";
    }
    @GetMapping(value = "/instructor")
    public String coursesByInstructorId(Model model, Long instructorId){
 
         Instructor instructor = instructorService.loadInstructorById(instructorId);
         model.addAttribute("listCourses",instructor.getCourses());
-        return "course-views/instructor-courses";
+        return "instructor-courses";
    }
 
 }
