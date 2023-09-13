@@ -13,7 +13,27 @@
           <form method="get" th:action="@{index}">
             <label>Keyword</label>
             <input type="text" name="keyword" th:value="${keyword}">
+            <button type="submit" class="btn btn-primary">Search</button>
           </form>
+
+          <table class="table mt-3">
+            <thead>
+            <tr class="text-center">
+              <th>Instructor Id</th>
+              <th>Instructor First Name</th>
+              <th>Instructor Last Name</th>
+              <th>Instructor Summary</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center" th:each="instructor:${listInstructors}">
+              <td th:text="${instructor.getInstructorId()}"></td>
+              <td th:text="${instructor.getFirstName()()}"></td>
+              <td th:text="${instructor.getLastName()()}"></td>
+              <td th:text="${instructor.getSummary()()}"></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
