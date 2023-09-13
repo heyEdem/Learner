@@ -2,7 +2,6 @@ package com.edem.admin.controller;
 
 import com.edem.admin.Service.CourseService;
 import com.edem.admin.Service.InstructorService;
-import com.edem.admin.Service.StudentService;
 import com.edem.admin.entity.Course;
 import com.edem.admin.entity.Instructor;
 import org.springframework.stereotype.Controller;
@@ -21,16 +20,16 @@ public class CourseController {
     private final CourseService courseService;
     private final InstructorService instructorService;
 
-    private final StudentService studentService;
 
-    public CourseController(CourseService courseService, InstructorService instructorService, StudentService studentService) {
+    public CourseController(CourseService courseService, InstructorService instructorService) {
         this.courseService = courseService;
         this.instructorService = instructorService;
-        this.studentService = studentService;
+
     }
 
     @GetMapping(value = "/index")
     public String courses (Model model, @RequestParam(name = "keyword", defaultValue = "") String keyword){
+
         List<Course> courses = courseService.findCoursesByCourseName(keyword);
         model.addAttribute("listCourses",courses);
         model.addAttribute("keyword",keyword);
@@ -82,6 +81,7 @@ public class CourseController {
    @GetMapping(value = "/enrollStudent")
     public String enrollCurrentStudentInCourse(Long courseId){
         Long studentId = 1L;
+
         courseService.assignStudentToCourse(courseId, studentId);
         return "redirect:/courses/index/student";
    }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<head>
+    <meta charset="UTF-8">
+    <title>Instructors</title>
+</head>
+<body>
+  <div layout:fragment="content1">
+    <div class="container mt-3">
+      <div class="card">
+        <div class="card-header">List of Instructors</div>
+        <div class="card-body">
+          <form method="get" th:action="@{index}">
+            <label>Keyword</label>
+            <input type="text" name="keyword" th:value="${keyword}">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
