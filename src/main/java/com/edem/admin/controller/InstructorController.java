@@ -1,7 +1,6 @@
 package com.edem.admin.controller;
 
 import com.edem.admin.Service.InstructorService;
-import com.edem.admin.dao.InstructorDao;
 import com.edem.admin.entity.Instructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,5 +26,17 @@ public class InstructorController {
         model.addAttribute("listInstructors", instructors);
         model.addAttribute("keyword", keyword);
         return "instructor-views/instructors";
+    }
+    @GetMapping("/delete")
+    public String deleteInstructor(Long instructorId, String keyword){
+        instructorService.removeInstructor(instructorId);
+        return "redirect:/instructors/index?keyword=" + keyword;
+    }
+
+    @GetMapping(value = "/update")
+    public String updateInstructor(Model model, Long instructorId){
+        Instructor instructor=  instructorService.loadInstructorById(instructorId);
+        model.addAttribute("instructor", instructor);
+        return "instructor-views/formUpdate";
     }
 }
