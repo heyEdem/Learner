@@ -36,7 +36,7 @@ public class InstructorController {
 
     @GetMapping(value = "/formUpdate")
     public String updateInstructor(Model model, Long instructorId){
-        Instructor instructor=  instructorService.loadInstructorById(instructorId);
+        Instructor instructor =  instructorService.loadInstructorById(instructorId);
         model.addAttribute("instructor", instructor);
         return "instructor-views/formUpdate";
     }
