@@ -34,4 +34,10 @@ public class StudentController {
         studentService.removeStudent(studentId);
         return "redirect:/students/index?keyword="+ keyword;
     }
+
+    public String updateStudent(Model model, Long studentId){
+        Student student = studentService.loadStudentById(studentId);
+        model.addAttribute("student",student);
+        return "student-views/formUpdate";
+    }
 }
