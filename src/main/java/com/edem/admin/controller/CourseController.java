@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.edem.admin.Constants.Constants.*;
+
 @Controller
 @RequestMapping(value = "/courses")
 public class CourseController {
@@ -31,8 +33,8 @@ public class CourseController {
     public String courses (Model model, @RequestParam(name = "keyword", defaultValue = "") String keyword){
 
         List<Course> courses = courseService.findCoursesByCourseName(keyword);
-        model.addAttribute("listCourses",courses);
-        model.addAttribute("keyword",keyword);
+        model.addAttribute(LIST_COURSES,courses);
+        model.addAttribute(KEYWORD,keyword);
         return "courses";
     }
 
@@ -47,8 +49,8 @@ public class CourseController {
         Course course = courseService.loadCourseById(courseId);
         List<Instructor> instructors = instructorService.fetchAllInstructors();
 
-        model.addAttribute("course",course);
-        model.addAttribute("listInstructors", instructors);
+        model.addAttribute(COURSE,course);
+        model.addAttribute(LIST_INSTRUCTORS, instructors);
         return "formUpdate";
     }
 
@@ -56,7 +58,7 @@ public class CourseController {
     public String formCreate(Model model){
         List<Instructor> instructors = instructorService.fetchAllInstructors();
 
-        model.addAttribute("listInstructors",instructors);
+        model.addAttribute(LIST_INSTRUCTORS,instructors);
         model.addAttribute("course", new Course());
         return "formCreate";
     }
@@ -73,8 +75,8 @@ public class CourseController {
 
         List<Course> courseList = courseService.fetchAllCoursesForStudent(studentId);
         List<Course> otherCourses= courseService.fetchAll().stream().filter(course -> !courseList.contains(course)).collect(Collectors.toList());
-        model.addAttribute("listCourses",courseList);
-        model.addAttribute("otherCourses",otherCourses);
+        model.addAttribute(LIST_COURSES,courseList);
+        model.addAttribute(OTHER_COURSES,otherCourses);
         return "student-courses";
    }
 
@@ -91,14 +93,14 @@ public class CourseController {
         Long instructorId = 1L;
 
         Instructor instructor = instructorService.loadInstructorById(instructorId);
-        model.addAttribute("listCourses",instructor.getCourses());
+        model.addAttribute(LIST_COURSES,instructor.getCourses());
         return "instructor-courses";
    }
    @GetMapping(value = "/instructor")
    public String coursesByInstructorId(Model model, Long instructorId){
 
         Instructor instructor = instructorService.loadInstructorById(instructorId);
-        model.addAttribute("listCourses",instructor.getCourses());
+        model.addAttribute(LIST_COURSES,instructor.getCourses());
         return "instructor-courses";
    }
 

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.edem.admin.Constants.Constants.*;
+
 @Controller
 @RequestMapping("/instructors")
 public class InstructorController {
@@ -30,8 +32,8 @@ public class InstructorController {
     @GetMapping("/index")
     public String instructors(Model model, @RequestParam(name = "keyword",defaultValue = "")String keyword){
         List<Instructor> instructors = instructorService.findInstructorsByName(keyword);
-        model.addAttribute("listInstructors", instructors);
-        model.addAttribute("keyword", keyword);
+        model.addAttribute(LIST_INSTRUCTORS, instructors);
+        model.addAttribute(KEYWORD, keyword);
         return "instructor-views/instructors";
     }
     @GetMapping("/delete")
@@ -43,7 +45,7 @@ public class InstructorController {
     @GetMapping(value = "/formUpdate")
     public String updateInstructor(Model model, Long instructorId){
         Instructor instructor =  instructorService.loadInstructorById(instructorId);
-        model.addAttribute("instructor", instructor);
+        model.addAttribute(INSTRUCTOR, instructor);
         return "instructor-views/formUpdate";
     }
 
@@ -55,7 +57,7 @@ public class InstructorController {
 
     @GetMapping(value = "/formCreate")
     public String create(Model model){
-        model.addAttribute("instructor", new Instructor());
+        model.addAttribute(INSTRUCTOR, new Instructor());
         return "instructor-views/formCreate";
     }
 
