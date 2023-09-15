@@ -36,6 +36,11 @@
                 th:href="@{/instructors/delete(instructorId=${instructor.getInstructorId()}, keyword=${keyword})}">Delete
                 </a>
               </td>
+              <td>
+                <a class="btn btn-primary" th:href="@{/courses/instructor(instructorId=${instructor.getInstructorId()})}">
+                  Courses
+                </a>
+              </td>
             </tr>
             </tbody>
           </table>
