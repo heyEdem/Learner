@@ -35,9 +35,12 @@ public class StudentController {
         return "redirect:/students/index?keyword="+ keyword;
     }
 
+    @GetMapping(value = "/formUpdate")
     public String updateStudent(Model model, Long studentId){
         Student student = studentService.loadStudentById(studentId);
         model.addAttribute("student",student);
         return "student-views/formUpdate";
     }
+
+
 }
