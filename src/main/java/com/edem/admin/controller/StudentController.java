@@ -5,6 +5,7 @@ import com.edem.admin.entity.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -43,4 +44,9 @@ public class StudentController {
     }
 
 
+    @PostMapping(value = "/update")
+    public String update(Student student){
+        studentService.updateStudent(student);
+        return "redirect:/students/index";
+    }
 }
