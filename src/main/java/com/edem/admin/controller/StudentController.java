@@ -56,7 +56,7 @@ public class StudentController {
     }
 
     @GetMapping(value = "/formCreate")
-    public String formStudent(Model model) {
+    public String formStudents(Model model) {
         model.addAttribute("student", new Student());
         return "student-views/formCreate";
     }
@@ -71,7 +71,6 @@ public class StudentController {
 
         studentService.createStudent(student.getFirstName(), student.getLastName(),
                 student.getLevel(), student.getUser().getEmail(), student.getUser().getPassword());
-
         return "redirect:/students/index";
     }
 }
