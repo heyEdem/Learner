@@ -27,7 +27,7 @@
               <div class="mb-3 mt-3">
                   <label for="email" class="form-label">Email:</label>
                   <input id="email" type="email" name="email" class="form-control" th:field="${instructor.user.email}" required>
-                  <spam th:errors="${instructor.user.email}"></spam>
+                  <span th:errors="${instructor.user.email}"></span>
               </div>
 
               <div class="mb-3 mt-3">

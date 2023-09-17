@@ -8,7 +8,7 @@
 <body>
 <div layout:fragment="content1">
     <div class="col-md-6 offset-3 mt-3">
-        <form class="form-control" method="post" th:actions="@{students/formUpdate}" th:object="${student}">
+        <form class="form-control" method="post" th:action="@{/students/update}" th:object="${student}">
             <div class="mb-3 mt-3">
                 <label class="form-label">StudentId:</label>
                 <input type="number" name="studentId" class="form-control" th:value="${student.getStudentId()}" readonly="readonly">
