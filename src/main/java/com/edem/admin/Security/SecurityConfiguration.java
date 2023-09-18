@@ -16,6 +16,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.formLogin();
         http.authorizeRequests().antMatchers("/").permitAll();
+        http.exceptionHandling().accessDeniedPage("/403");
 
         http.authorizeRequests().anyRequest().authenticated();
         return http.build();
